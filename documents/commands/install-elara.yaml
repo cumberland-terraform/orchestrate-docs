@@ -1,0 +1,13 @@
+schemaVersion: "0.3"
+description: "Install the elara PyPI package"
+parameters:
+  version:
+    type: "String"
+    description: "Version of the package to install"
+    default: "1.0.0"
+mainSteps:
+  - name: "install"
+    action: "aws:runShellScript"
+    inputs:
+      runCommand:
+        - "pip install elara=={{ version }}"
