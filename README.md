@@ -22,8 +22,8 @@ provider "aws" {
 **modules.tf**
 
 ```
-module "build" {
-	source 					= "github.com/cumberland-terraform/orchestrate-build.git"
+module "ssm" {
+	source 					= "github.com/cumberland-terraform/orchestrate-ssm.git"
 	
 	platform				= {
 		client          	= "<client>"
