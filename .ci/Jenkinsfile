@@ -4,7 +4,7 @@ pipeline {
 	}
 	
 	environment { 
-		MODULE_NAME 				= 'build'
+		MODULE_NAME 				= 'docs'
 		OS_ARCH 					= 'amd64' 
 		TF_LOG 						= 'WARN'
 		TF_VER 						= '1.8.5'
@@ -87,27 +87,6 @@ pipeline {
 				}
 			}
 		}	
-
-		stage ('Test') {
-			when { expression { env.GIT_BRANCH =~ "origin/*PR*"} }
-			steps {
-				sh 					'''
-									terraform init \
-										-no-color
-									terraform test \
-										-test-directory ./.ci/tests \
-										-json \
-										> test.json
-									'''
-			post {
-				always {
-					sh 				'''
-									cat test.json
-									'''
-					}
-				}
-			}
-		}
 		
 		stage ('Document') {
 			when { expression {env.GIT_BRANCH =~ "origin/master/*" } }
