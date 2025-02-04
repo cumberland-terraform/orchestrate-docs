@@ -5,22 +5,40 @@ parameters:
     type: "String"
     description: "User to add to the docker group"
 mainSteps:
-  - name: "checkDocker"
-    action: "aws:runShellScript"
+  - name: checkDocker
+    action: aws:runCommand
     inputs:
-      runCommand:
-        - "docker --version"
+      DocumentName: AWS-RunShellScript
+      Parameters:
+        commands:
+          - docker --version
     outputs:
-      - Name: dockerInstalled
-        Selector: "$.stdout" # Capture the entire stdout
-        Type: String
-    nextStep: installDocker
-
-  - name: "installDocker"
-    action: "aws:runShellScript"
-    condition: "'{{ checkDocker.dockerInstalled }}' == ''" # Condition on the full stdout
+      - Name: "dockerInstalled"
+        Selector: "$.Status == 0"
+        Type: "Boolean"
+  - name: checkInstallation
+    action: aws:branch
     inputs:
-      runCommand:
+      Choices:
+        - NextStep: installDocker
+          Variable: "{{ checkDocker.dockerInstalled }}"
+          BooleanEquals: true
+        - NextStep: echoEnd
+          Variable: "{{ checkDocker.dockerInstalled }}"
+          BooleanEquals: false
+  - name: installDocker
+    action: aws:runCommand
+    inputs:
+      DocumentName: AWS-RunShellScript
+      Parameters:
+        commands:
         - "sudo apt-get update -y"
         - "sudo apt-get install -y docker.io"
         - "sudo usermod -aG docker {{ user }}"
+  - name: echoEnd
+    action: aws:runCommand
+    inputs:
+      DocumentName: AWS-RunShellScript
+      Parameters:
+        commands: 
+          - echo "Docker is installed!"
