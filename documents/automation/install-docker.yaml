@@ -12,13 +12,13 @@ mainSteps:
         - "docker --version"
     outputs:
       - Name: dockerInstalled
-        Selector: "$.stdout.splitlines()[0]" # Correct: Selector for aws:runShellScript
+        Selector: "$.stdout" # Capture the entire stdout
         Type: String
     nextStep: installDocker
 
   - name: "installDocker"
     action: "aws:runShellScript"
-    condition: "'{{ checkDocker.dockerInstalled }}' == ''"
+    condition: "'{{ checkDocker.dockerInstalled }}' == ''" # Condition on the full stdout
     inputs:
       runCommand:
         - "sudo apt-get update -y"
