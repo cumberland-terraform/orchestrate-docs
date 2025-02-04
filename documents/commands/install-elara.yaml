@@ -1,4 +1,4 @@
-schemaVersion: "1.2"
+schemaVersion: "2.2"
 description: "Install the elara PyPI package"
 parameters:
   version:

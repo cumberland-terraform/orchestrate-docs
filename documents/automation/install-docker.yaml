@@ -1,4 +1,4 @@
-schemaVersion: "1.2"
+schemaVersion: "0.3"
 description: "Installs Docker if it's not already installed"
 parameters:
   user:
