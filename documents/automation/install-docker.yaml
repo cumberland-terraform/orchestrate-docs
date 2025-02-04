@@ -11,9 +11,9 @@ mainSteps:
       runCommand:
         - "docker --version"
     outputs:
-      - name: "dockerInstalled"
-        selector: "$?.ExitCode == 0"
-        type: "Boolean"
+      - Name: "dockerInstalled"
+        Selector: "$?.ExitCode == 0"
+        Type: "Boolean"
   - name: "installDocker"
     action: "aws:runShellScript"
     condition: "!checkDocker.dockerInstalled"
