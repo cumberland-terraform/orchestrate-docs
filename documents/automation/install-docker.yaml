@@ -11,13 +11,16 @@ mainSteps:
       runCommand:
         - "docker --version"
     outputs:
-      - Name: "dockerInstalled"
-        Selector: "$?.ExitCode == 0"
-        Type: "Boolean"
+      - Name: dockerInstalled
+        ResultSelector: "$.stdout.splitlines()[0]"  # Extract the version string
+        Type: String
+    nextStep: installDocker # Use nextStep for conditional logic
+
   - name: "installDocker"
     action: "aws:runShellScript"
-    condition: "!checkDocker.dockerInstalled"
+    condition: "'{{ checkDocker.dockerInstalled }}' == ''" # Check if dockerInstalled is empty
     inputs:
       runCommand:
         - "sudo apt-get update -y"
         - "sudo apt-get install -y docker.io"
+        - "sudo usermod -aG docker {{ user }}"
