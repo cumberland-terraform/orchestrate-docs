@@ -8,8 +8,8 @@ locals {
             for f in fileset("${path.module}/documents/automation", "*.yaml"):
                 split(".", f)[0]    => file("${path.module}/documents/automation/${f}")
         }
-        policy                      = {
-            for f in fileset("${path.module}/documents/policy", "*.yaml"):
+        policies                    = {
+            for f in fileset("${path.module}/documents/policies", "*.yaml"):
                 split(".", f)[0]    => file("${path.module}/documents/policies/${f}")
         }
     }
