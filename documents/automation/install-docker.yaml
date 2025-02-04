@@ -19,6 +19,6 @@ mainSteps:
     condition: "!checkDocker.dockerInstalled"
     inputs:
       runCommand:
-        - sudo apt-get update -y
-        - sudo apt-get install -y docker.io
-        - sudo usermod -aG docker {{ user }}
+        - "sudo apt-get update -y"
+        - "sudo apt-get install -y docker.io"
+        - "sudo usermod -aG docker {{user}}"
