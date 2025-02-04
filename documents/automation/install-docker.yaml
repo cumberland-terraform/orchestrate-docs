@@ -12,13 +12,13 @@ mainSteps:
         - "docker --version"
     outputs:
       - Name: dockerInstalled
-        ResultSelector: "$.stdout.splitlines()[0]"  # Extract the version string
+        Selector: "$.stdout.splitlines()[0]" # Correct: Selector for aws:runShellScript
         Type: String
-    nextStep: installDocker # Use nextStep for conditional logic
+    nextStep: installDocker
 
   - name: "installDocker"
     action: "aws:runShellScript"
-    condition: "'{{ checkDocker.dockerInstalled }}' == ''" # Check if dockerInstalled is empty
+    condition: "'{{ checkDocker.dockerInstalled }}' == ''"
     inputs:
       runCommand:
         - "sudo apt-get update -y"
