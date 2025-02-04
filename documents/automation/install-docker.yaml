@@ -21,4 +21,3 @@ mainSteps:
       runCommand:
         - "sudo apt-get update -y"
         - "sudo apt-get install -y docker.io"
-        - "sudo usermod -aG docker {{user}}"
