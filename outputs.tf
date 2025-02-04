@@ -1,4 +1,8 @@
-output "source" {
-    description                 = "SSM Documents"
-    value                       = aws_codestarconnections_connection.source
+output "documents" {
+    description                 = "SSM Document Metadata"
+    value                       = {
+        automation              = aws_ssm_document.Automation
+        commands                = aws_ssm_document.commands
+        policies                = aws_ssm_document.policies
+    }
 }

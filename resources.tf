@@ -16,7 +16,7 @@ resource "aws_ssm_document" "automation" {
     tags                    = local.tags
 }
 
-resource "aws_ssm_document" "policy" {
+resource "aws_ssm_document" "policies" {
     for_each                = local.documents.automation
 
     document_type           = "Policy"

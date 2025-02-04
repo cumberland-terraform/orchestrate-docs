@@ -18,6 +18,6 @@ locals {
                                         var.suffix
                                     ]))
 
-    tags                            = merge(var.build.tags, module.platform.tags)
+    tags                            = module.platform.tags
 
 }
