@@ -19,7 +19,7 @@ resource "aws_ssm_document" "automation" {
 }
 
 resource "aws_ssm_document" "policies" {
-    for_each                = local.documents.automation
+    for_each                = local.documents.policies
 
     document_format         = "YAML"
     document_type           = "Policy"
