@@ -3,7 +3,7 @@ resource "aws_ssm_document" "commands" {
     
     document_type           = "Command"
     content                 = each.value
-    name                    = join("-", [local.name, each.key])
+    name                    = upper(join("-", [local.name, each.key]))
     tags                    = local.tags
 }
 
@@ -12,7 +12,7 @@ resource "aws_ssm_document" "automation" {
 
     document_type           = "Automation"
     content                 = each.value
-    name                    = join("-", [local.name, each.key])
+    name                    = upper(join("-", [local.name, each.key]))
     tags                    = local.tags
 }
 
@@ -21,6 +21,6 @@ resource "aws_ssm_document" "policies" {
 
     document_type           = "Policy"
     content                 = each.value
-    name                    = join("-", [local.name, each.key])
+    name                    = upper(join("-", [local.name, each.key]))
     tags                    = local.tags
 }
